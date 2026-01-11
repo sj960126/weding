@@ -12,10 +12,10 @@
     
     <style>
         :root {
-            --bg-color: #fff; /* 순백색 배경 (요즘 트렌드) */
+            --bg-color: #fff;
             --text-main: #1d1d1d;
             --text-sub: #555;
-            --point-color: #dcb097; /* 살구빛 포인트 */
+            --point-color: #dcb097;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -23,7 +23,7 @@
         body {
             margin: 0 auto;
             padding: 0;
-            font-family: 'Hahmlet', serif; /* 전체 명조체 적용 */
+            font-family: 'Hahmlet', serif;
             background-color: #f7f7f7; 
             color: var(--text-main);
             max-width: 480px; 
@@ -32,37 +32,37 @@
             overflow-x: hidden;
         }
 
-        /* --- 인트로 --- */
+        /* --- 인트로 (속도 개선) --- */
         #intro {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff; z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.5s ease;
+            transition: opacity 0.8s ease; /* 사라지는 속도 빨라짐 (1.5s -> 0.8s) */
         }
         .intro-title {
             font-family: 'Pinyon Script', cursive;
             font-size: 3rem; margin-bottom: 20px;
-            animation: fadeInUp 1.5s forwards; opacity: 0;
+            animation: fadeInUp 1.0s forwards; opacity: 0; /* 애니메이션 속도 up */
         }
         .intro-date {
             font-family: 'Hahmlet', serif; letter-spacing: 5px; font-size: 0.9rem;
-            animation: fadeInUp 1.5s 0.5s forwards; opacity: 0;
+            animation: fadeInUp 1.0s 0.3s forwards; opacity: 0; /* 딜레이 줄임 */
         }
 
-        /* --- 메인 커버 (포스터 스타일) --- */
+        /* --- 메인 커버 --- */
         .hero {
             position: relative; height: 100vh; background: #fff;
             display: flex; flex-direction: column;
         }
         .hero-img-box {
             flex: 1; overflow: hidden; position: relative;
-            margin: 20px 20px 0 20px; /* 여백을 주어 액자 느낌 */
-            border-radius: 100px 100px 0 0; /* 아치형 디자인 (트렌드) */
+            margin: 20px 20px 0 20px;
+            border-radius: 100px 100px 0 0;
         }
         .hero-img {
             width: 100%; height: 100%;
             background: url('./image/main.jpg') no-repeat center/cover;
-            transform: scale(1.1); transition: transform 3s ease-out;
+            transform: scale(1.1); transition: transform 2.5s ease-out; /* 줌인 속도도 살짝 빠르게 */
         }
         .hero.loaded .hero-img { transform: scale(1.0); }
         
@@ -92,7 +92,6 @@
             font-size: 1.2rem; margin-bottom: 40px; letter-spacing: 2px;
         }
         
-        /* 스크롤 애니메이션 */
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
         .fade-up.active { opacity: 1; transform: translateY(0); }
 
@@ -108,7 +107,7 @@
         .name-row { display: flex; flex-direction: column; gap: 5px; }
         .parents { font-size: 0.85rem; color: #888; font-family: 'Pretendard', sans-serif; }
 
-        /* --- 캘린더 (디자인 포인트) --- */
+        /* --- 캘린더 --- */
         .calendar-wrap {
             margin: 40px auto; width: 90%; max-width: 300px;
             border-top: 1px solid #eee; border-bottom: 1px solid #eee;
@@ -118,22 +117,16 @@
         .cal-table { width: 100%; font-family: 'Pretendard'; font-size: 0.9rem; text-align: center; }
         .cal-table th { color: #dcb097; padding-bottom: 15px; font-weight: 400; }
         .cal-table td { padding: 8px; color: #ccc; }
-        .cal-table td.on { color: #333; } /* 이번달 날짜 */
+        .cal-table td.on { color: #333; }
         .cal-table td.d-day { 
             background: #dcb097; color: #fff; border-radius: 50%; font-weight: bold; 
             width: 30px; height: 30px; line-height: 30px; display: inline-block;
         }
 
-        /* --- 갤러리 (Masonry 스타일) --- */
-        .gallery-grid {
-            column-count: 2; column-gap: 10px;
-        }
-        .gallery-item {
-            break-inside: avoid; margin-bottom: 10px;
-        }
-        .gallery-item img {
-            width: 100%; border-radius: 2px;
-        }
+        /* --- 갤러리 --- */
+        .gallery-grid { column-count: 2; column-gap: 10px; }
+        .gallery-item { break-inside: avoid; margin-bottom: 10px; }
+        .gallery-item img { width: 100%; border-radius: 2px; }
 
         /* --- 오시는 길 --- */
         .map-area { margin-top: 30px; }
@@ -196,7 +189,7 @@
         <div class="hero-text fade-up">
             <div class="hero-eng">Hyunsoo & Hyojin</div>
             <div class="hero-kor">송현수 <span style="font-size:0.7em; color:#ddd;">|</span> 김효진</div>
-            <div class="hero-info">2026년 4월 25일 일요일 오후 14시<br>평택 엔팰리스컨벤션</div>
+            <div class="hero-info">2026년 4월 25일 토요일 오후 2시<br>평택 엔팰리스컨벤션</div>
         </div>
     </div>
 
@@ -231,9 +224,9 @@
             <table class="cal-table">
                 <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
                 <tr><td></td><td></td><td></td><td class="on">1</td><td class="on">2</td><td class="on">3</td><td class="on">4</td></tr>
-                <tr><td class="d-day">5</td><td class="on">6</td><td class="on">7</td><td class="on">8</td><td class="on">9</td><td class="on">10</td><td class="on">11</td></tr>
+                <tr><td class="on">5</td><td class="on">6</td><td class="on">7</td><td class="on">8</td><td class="on">9</td><td class="on">10</td><td class="on">11</td></tr>
                 <tr><td class="on">12</td><td class="on">13</td><td class="on">14</td><td class="on">15</td><td class="on">16</td><td class="on">17</td><td class="on">18</td></tr>
-                <tr><td class="on">19</td><td class="on">20</td><td class="on">21</td><td class="on">22</td><td class="on">23</td><td class="on">24</td><td class="on">25</td></tr>
+                <tr><td class="on">19</td><td class="on">20</td><td class="on">21</td><td class="on">22</td><td class="on">23</td><td class="on">24</td><td class="d-day">25</td></tr>
                 <tr><td class="on">26</td><td class="on">27</td><td class="on">28</td><td class="on">29</td><td class="on">30</td><td></td><td></td></tr>
             </table>
         </div>
@@ -300,15 +293,15 @@
     <div id="toast">복사되었습니다</div>
 
     <script>
-        // 인트로 제거 & 메인 애니메이션
+        // 인트로 제거 & 메인 애니메이션 (시간 단축)
         window.onload = function() {
             setTimeout(() => {
                 document.getElementById('intro').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('intro').style.display = 'none';
                     document.getElementById('hero').classList.add('loaded');
-                }, 1000);
-            }, 2500);
+                }, 800); // 사라지는 시간 0.8초 (기존 1초)
+            }, 1200); // 대기 시간 1.2초 (기존 2.5초) -> 훨씬 빨라짐
         };
 
         // 스크롤 인터랙션
@@ -326,7 +319,7 @@
             img.src = `./image/${i}.jpg`;
             img.loading = "lazy";
             img.onclick = () => window.open(img.src);
-            img.onerror = () => img.remove(); // 에러시 삭제
+            img.onerror = () => img.remove(); 
             
             let div = document.createElement('div');
             div.className = 'gallery-item';
