@@ -3,505 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Grandest Show - 송현수 & 김효진</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>송현수 & 김효진의 결혼식</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Noto+Serif+KR:wght@200;300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-        /* --- 공통 변수 및 초기화 --- */
         :root {
-            --bg-color: #111;
-            --text-main: #fff;
-            --neon-color: #dfff4f;
-            --ticket-color: #a8c7c1;
-            --naver-green: #03c75a;
+            --text-main: #222;
+            --accent-color: #d4a373; 
+            --pink-color: #ff8ba7;
+            --gray-light: #999;
         }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            margin: 0 auto; padding: 0;
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--bg-color); color: var(--text-main);
-            max-width: 480px; min-height: 100vh; overflow-x: hidden;
+            margin: 0; padding: 0;
+            font-family: 'Noto Serif KR', serif;
+            background-color: #f5f5f5;
+            color: var(--text-main);
+            max-width: 480px; min-height: 100vh;
+            margin: 0 auto; line-height: 1.8;
         }
-        img { max-width: 100%; display: block; }
-        .tit-g {
-            font-family: 'Oswald', sans-serif; font-size: 1.8rem; letter-spacing: 1px;
-            text-align: center; margin-bottom: 30px; display: block; color: inherit;
+        
+        .wrapper {
+            background: #fff; box-shadow: 0 0 30px rgba(0,0,0,0.03);
+            min-height: 100vh; position: relative;
         }
 
-        /* --- 1. Cover --- */
-        .cont-cover {
-            position: relative; height: 100vh;
-            /* 내 컴퓨터의 image/main.jpg 사용 */
-            background: url('./image/main.jpg') no-repeat center/cover;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        /* --- 인트로 섹션 --- */
+        .intro-section {
+            position: relative; width: 100%; height: 100vh;
+            overflow: hidden; background: #000;
+        }
+
+        .intro-bg {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(0.3); 
+            transform: scale(1.0);
+            transition: filter 3.0s ease-in-out, transform 10s ease;
+        }
+        
+        .intro-section.loaded .intro-bg { 
+            filter: brightness(0.9);
+            transform: scale(1.05);
+        }
+
+        .intro-text-overlay {
+            position: absolute;
+            top: 75%; left: 0; width: 100%;
+            transform: translateY(-50%);
             text-align: center;
-        }
-        .cont-cover::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 50%, rgba(0,0,0,0.7) 100%);
-        }
-        .cover-txt { position: relative; z-index: 10; margin-bottom: auto; margin-top: 80px; }
-        .the-grandest {
-            font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1;
-            font-style: italic; text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-        .of-our-love {
-            font-family: 'Great Vibes', cursive; font-size: 4rem; margin-top: 10px; display: block;
-        }
-        .cover-names {
-            position: relative; z-index: 10; width: 100%;
-            display: flex; justify-content: space-between; padding: 40px 20px;
-            font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 0.9rem;
+            z-index: 10;
+            padding: 0 20px;
         }
 
-        /* --- 2. Invite (수정됨: 위아래 필름) --- */
-        .cont-invite { padding: 60px 0; background: #000; text-align: center; overflow: hidden; }
+        .intro-invite {
+            font-family: 'Great Vibes', cursive; 
+            font-size: 3.8rem; 
+            color: var(--pink-color);
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: inline-block;
+            opacity: 0;
+            clip-path: inset(0 100% 0 0);
+            animation: writeReveal 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes writeReveal {
+            from { opacity: 0; clip-path: inset(0 100% 0 0); }
+            to { opacity: 1; clip-path: inset(0 0 0 0); }
+        }
+
+        .scroll-down {
+            position: absolute; bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            color: #fff; font-size: 1.5rem;
+            animation: bounce 2s infinite; opacity: 0.8; z-index: 20;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform:translate(-50%,0);} 40% {transform:translate(-50%,-10px);} 60% {transform:translate(-50%,-5px);} }
+
+        /* --- [수정] 인사말 (Greeting) 섹션 --- */
+        section { padding: 90px 24px; background: #fff; text-align: center; }
         
-        /* 필름 스트립 공통 */
-        .film-strip {
-            border-top: 15px dashed #222; border-bottom: 15px dashed #222;
-            padding: 10px 0; background: #000;
-            width: 100%; overflow: hidden; position: relative;
+        .section-tit {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--accent-color);
+            text-align: center; margin-bottom: 15px; display: block; font-weight: 600;
         }
-        .film-track {
-            display: flex; gap: 10px;
-            width: max-content;
-        }
-        /* [수정] 속도 차이를 위한 애니메이션 클래스 */
-        .film-track.slow { animation: slideFilm 40s linear infinite; } /* 상단: 느리게 */
-        .film-track.fast { animation: slideFilm 25s linear infinite; } /* 하단: 빠르게 */
-
-        @keyframes slideFilm {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .section-sub {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.2rem; text-align: center; margin-bottom: 50px;
+            font-weight: 500; color: #111;
         }
 
-        .film-img {
-            flex: 0 0 180px; height: 120px; /* 크기 약간 조정 */
-            background-color: #222; border: 1px solid #444;
-            background-size: cover; background-position: center; filter: grayscale(100%);
+        /* 인사말 사진 박스 */
+        .greeting-photo-box {
+            width: 80%; max-width: 320px;
+            margin: 0 auto 50px auto; 
+            aspect-ratio: 2/3; /* 세로 비율 고정 */
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
+        .greeting-photo-box img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .greeting .poem { 
+            margin: 0 0 70px 0; 
+            font-size: 0.95rem; color: #555; 
+            line-height: 2.8; font-weight: 300; 
+            word-break: keep-all; 
+        }
+
+        /* [핵심 수정] 이름 영역 (살롱드레터 스타일 완벽 복원) */
+        .names-area {
+            font-family: 'Noto Serif KR', serif;
+            display: flex; flex-direction: column; gap: 14px;
+            justify-content: center; align-items: center;
+        }
+        .name-row {
+            display: flex; align-items: center; justify-content: center;
+            color: #333; line-height: 1; width: 100%;
+        }
+        /* 부모님 성함: 적당한 크기 */
+        .parents {
+            font-size: 1.15rem; color: #444; font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+        /* 의 장남/차녀: 작고 연하게 */
+        .relation {
+            font-size: 0.85rem; color: var(--gray-light); 
+            margin: 0 12px; font-weight: 300;
+            position: relative; top: 1px; /* 시각적 중앙 정렬 */
+        }
+        /* 신랑/신부 이름: 크고 진하게 */
+        .target {
+            font-size: 1.4rem; color: #111; font-weight: 600;
+            letter-spacing: 2px; /* 이름 자간 넓힘 */
+        }
+
+        /* --- 나머지 섹션 --- */
+        .gallery { padding: 80px 0; background: #fdfdfd; }
+        .swiper-slide img { width: 100%; height: auto; max-height: 600px; object-fit: contain; }
         
-        .box-film { padding: 40px 30px; } /* 위아래 여백 추가 */
-        .txt-film { font-size: 0.95rem; line-height: 2.2; color: #ddd; display: block; margin-bottom: 20px; }
-        .txt-source { font-size: 0.9rem; color: #777; margin-bottom: 30px; display: block; }
-        .txt-gold { color: #ffe082; margin-top: 30px; font-weight: 500; }
-
-        /* --- 3. Showbox --- */
-        .cont-showbox { padding: 80px 20px; background: #f0f0f0; text-align: center; }
-        .poster-frame {
-            background: #111; padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            max-width: 360px; margin: 0 auto; border-radius: 4px; position: relative;
-        }
-        .marquee {
-            border: 2px solid #fff; background: #fff; color: #000;
-            font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1.5rem;
-            padding: 8px 0; margin-bottom: 15px; letter-spacing: 2px;
-        }
-        .poster-img {
-            position: relative; width: 100%; height: 480px;
-            /* 내 컴퓨터의 image/main.jpg 사용 */
-            background: url('./image/main.jpg') no-repeat center/cover;
-            filter: brightness(0.5) grayscale(50%);
-        }
-        .poster-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px;
-        }
-        .neon-tit {
-            font-family: 'Oswald', sans-serif; font-size: 4rem; line-height: 0.9;
-            color: var(--neon-color); font-style: italic; margin: 0;
-            text-shadow: 0 0 5px #fff, 0 0 20px var(--neon-color), 0 0 40px var(--neon-color);
-        }
-        .neon-sub { 
-            font-family: 'Oswald'; color: #fff; letter-spacing: 6px; margin-top: 15px; display: block; 
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
-        }
-
-        /* --- 4. Calendar --- */
-        .cont-calendar { 
-            padding: 80px 20px; background: #111; text-align: center; color: #fff;
-        }
-        .calendar-bg {
-            width: 100%; max-width: 320px; margin: 0 auto 40px;
-            height: 200px; border-radius: 20px; overflow: hidden; position: relative;
-            box-shadow: 0 0 30px rgba(255,255,255,0.1); background: #222;
-        }
-        /* 내 컴퓨터의 image/5.jpg 사용 */
-        .calendar-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: grayscale(80%); }
-        .calendar-bg span {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-family: 'Great Vibes'; font-size: 2.5rem; text-shadow: 0 2px 4px #000; white-space: nowrap;
-        }
-        .cal-table { width: 100%; max-width: 300px; margin: 0 auto; font-family: 'Oswald'; }
-        .cal-table th { color: #666; padding: 10px; font-weight: 400; }
-        .cal-table td { padding: 12px; color: #444; }
-        .cal-table td.on { color: #fff; }
-        .cal-table td.d-day { background: #fff; color: #000; border-radius: 50%; font-weight: bold; }
-
-        /* --- 5. Cast --- */
-        .cont-cast { padding: 60px 20px; background: #f4f4f4; color: #111; text-align: center; }
-        .cast-group { margin-bottom: 30px; }
-        .cast-role { font-size: 0.8rem; color: #888; display: block; margin-bottom: 5px; }
-        .cast-name { font-size: 1.6rem; font-weight: 700; display: block; font-family: 'Noto Sans KR'; }
-        .cast-en { font-family: 'Oswald'; color: #ccc; font-size: 1rem; margin-top: 5px; display: block; }
-
-        /* --- 6. Ticket --- */
-        .cont-ticket { padding: 80px 20px; background: #f4f4f4; text-align: center; color: #111; }
-        .ticket-card {
-            background: var(--ticket-color);
-            width: 100%; max-width: 320px; margin: 0 auto;
-            border-radius: 10px; position: relative;
-            padding: 30px 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            mask-image: radial-gradient(circle at 10px top, transparent 5px, black 5px),
-                        radial-gradient(circle at 10px bottom, transparent 5px, black 5px);
-            mask-size: 20px 100%; mask-position: -10px 0; mask-repeat: repeat-x;
-        }
-        .ticket-header {
-            border-bottom: 1px dashed #333; padding-bottom: 15px; margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: flex-end;
-        }
-        .t-date { font-family: 'Oswald'; font-size: 1.4rem; font-weight: 700; }
-        .t-time { font-family: 'Oswald'; font-size: 1.1rem; }
-        .ticket-body { padding-bottom: 20px; border-bottom: 1px dashed #333; margin-bottom: 20px; }
-        .ticket-rings { width: 120px; margin: 0 auto; opacity: 0.7; } 
-        .t-place { font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 5px; }
-        .t-addr { font-size: 0.8rem; color: #444; }
-
-        /* --- 7. Gallery --- */
-        .cont-gallery { padding: 60px 0; background: #111; text-align: center; }
-        .cont-gallery .tit-g { color: #fff; margin-bottom: 10px; }
-        .gallery-wrap {
-            border-top: 15px solid #000; border-bottom: 15px solid #000;
-            background: #222; padding: 20px 0;
-        }
-        .swiper-slide { width: 80%; margin: 0 10px; }
-        .swiper-slide img { 
-            /* 내 컴퓨터의 image 폴더 사진 사용 */
-            width: 100%; height: 400px; object-fit: cover; border-radius: 4px;
-        }
-
-        /* --- 8. Location --- */
-        .cont-location { padding: 80px 20px; background: #eee; color: #111; }
-        .location-frame {
-            background: #fff; padding: 20px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
-        }
-        .loc-title { font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; }
-        .loc-addr { font-size: 0.9rem; color: #666; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .calendar-sec { background: #fff; }
+        .cal-header { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 30px; }
+        .cal-table { width: 100%; max-width: 320px; margin: 0 auto; border-collapse: collapse; font-family: 'Montserrat', sans-serif; }
+        .cal-table th { color: #aaa; font-weight: 400; padding: 15px 0; font-size: 0.8rem; }
+        .cal-table td { padding: 12px 0; color: #ccc; font-size: 0.95rem; }
+        .cal-table td.on { color: #333; }
+        .cal-table td.d-day { position: relative; color: #fff; font-weight: 600; z-index: 1; }
+        .cal-table td.d-day::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background: var(--accent-color); border-radius: 50%; z-index: -1; }
         
-        /* 약도 이미지 영역 */
-        .box-map {
-            width: 100%; height: 250px; background: #f0f0f0; margin-bottom: 20px;
-            border-radius: 8px; overflow: hidden; border: 1px solid #eee;
-        }
-        /* 내 컴퓨터의 image/map.jpg 사용 */
-        .box-map img { width: 100%; height: 100%; object-fit: cover; }
+        .d-day-bar { margin-top: 40px; padding: 20px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; color: #555; }
+        .d-day-bar strong { color: var(--accent-color); }
 
-        .btn-naver {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            width: 100%; padding: 15px; background: var(--naver-green); color: #fff;
-            font-weight: 700; text-decoration: none; border-radius: 8px;
-            font-family: 'Noto Sans KR'; box-shadow: 0 5px 15px rgba(3, 199, 90, 0.3);
-        }
-        .way-info { margin-top: 30px; text-align: left; }
-        .way-tit { font-weight: 700; margin-bottom: 8px; display: block; font-size: 1rem; }
-        .way-desc { font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+        .location { background: #fff; }
+        .address-box { margin-bottom: 30px; }
+        .map-box { width: 100%; height: 300px; background: #f9f9f9; margin-bottom: 30px; position: relative; }
+        .map-box img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-map { display: inline-block; padding: 12px 30px; margin: 0 4px; border: 1px solid #ddd; background: #fff; color: #333; text-decoration: none; font-size: 0.8rem; }
+        
+        .account { background: #f9f9f9; }
+        .acc-wrapper { max-width: 400px; margin: 30px auto 0; text-align: left; }
+        .acc-item { border-bottom: 1px solid #e0e0e0; background: #fff; }
+        .acc-item:first-child { border-top: 1px solid #e0e0e0; }
+        .acc-head { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 500; }
+        .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #fafafa; }
+        .acc-row { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; border-top: 1px solid #eee; }
+        .btn-copy { background: #fff; border: 1px solid #ddd; padding: 4px 12px; font-size: 0.75rem; border-radius: 20px; cursor: pointer; }
 
-        /* --- 9. Account (수정됨) --- */
-        .cont-account { padding: 80px 20px; background: #f4f4f4; color: #111; text-align: center; }
-        .acc-group { background: #e8e8e8; border-radius: 8px; overflow: hidden; margin-top: 30px; text-align: left; }
-        .acc-header { 
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid #ddd; background: #e0e0e0;
-        }
-        .acc-bank { 
-            background: #f0f0f0; padding: 15px 20px; font-size: 0.9rem; color: #444; 
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .acc-bank:last-child { border-bottom: none; }
-        .btn-copy { border: 1px solid #aaa; background: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+        footer { padding: 60px 20px; background: #fff; font-size: 0.75rem; color: #ccc; }
+        .footer-names { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 5px; text-transform: uppercase; }
 
-        /* --- 10. Footer --- */
-        .cont-footer { padding: 80px 20px; background: #000; color: #fff; text-align: center; }
-        .special-cast { margin-bottom: 60px; }
-        .dog-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; display: block; }
-        .dog-role { font-size: 0.8rem; color: #888; font-family: 'Oswald'; }
-        .footer-logo { 
-            border: 1px solid #fff; border-radius: 50%; padding: 10px 20px; 
-            display: inline-block; margin-bottom: 20px; font-family: 'Oswald';
-        }
-        .copyright { font-size: 0.7rem; color: #666; font-family: 'Oswald'; letter-spacing: 1px; }
-
-        /* Music Button */
-        .btn-audio {
-            position: fixed; top: 20px; right: 20px; z-index: 100;
-            background: rgba(0,0,0,0.6); color: #fff; padding: 8px 15px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.3); font-size: 0.8rem; cursor: pointer;
-        }
     </style>
 </head>
 <body>
 
-    <button class="btn-audio" onclick="toggleAudio()">Music 🔊</button>
-    <audio id="bgm" loop>
-        <source src="./assets/music/bgm.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="cont-cover" data-aos="fade">
-        <div class="cover-txt">
-            <span class="the-grandest">The Grandest<br>Show</span>
-            <span class="of-our-love">of our { love }</span>
-        </div>
-        <div class="cover-names">
-            <div>
-                <span style="display:block; font-size:0.7rem; color:#ccc;">BRIDE</span>
-                김효진
-            </div>
-            <div>
-                <span style="display:block; font-size:0.7rem; color:#ccc; text-align:right;">GROOM</span>
-                송현수
-            </div>
-        </div>
-    </div>
-
-    <div class="cont-invite">
-        
-        <div class="film-strip">
-            <div class="film-track slow">
-                <div class="film-img" style="background-image: url('./image/1.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/2.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/3.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/4.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/1.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/2.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/3.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/4.jpg');"></div>
-            </div>
-        </div>
-
-        <div class="box-film" data-aos="fade-up">
-            <span class="txt-film">
-                인생은 모두가 함께하는 여행이다.<br>
-                매일매일 사는 동안 우리가 할 수 있는 건<br>
-                최선을 다해 이 멋진 여행을 만끽하는 것이다.
-            </span>
-            <span class="txt-source">- 영화 < 어바웃타임 > 중 -</span>
-            <span class="txt-film txt-gold">
-                새로운 여행의 출발선에 서있는<br>
-                저희를 축복해 주시면 감사하겠습니다.
-            </span>
-        </div>
-
-        <div class="film-strip">
-            <div class="film-track fast">
-                <div class="film-img" style="background-image: url('./image/4.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/3.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/2.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/1.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/4.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/3.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/2.jpg');"></div>
-                <div class="film-img" style="background-image: url('./image/1.jpg');"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cont-showbox" data-aos="fade-up">
-        <div class="poster-frame">
-            <div class="marquee">NOW SHOWING</div>
-            <div class="poster-img">
-                <div class="poster-overlay">
-                    <h2 class="neon-tit">WEDDING<br>DAY</h2>
-                    <span class="neon-sub">SOOHA & HYESUNG</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cont-calendar" data-aos="fade-up">
-        <div class="calendar-bg">
-            <img src="./image/5.jpg" onerror="this.src='https://picsum.photos/400/200?grayscale&blur=2'">
-            <span>To be Continued</span>
-        </div>
-        <strong class="tit-g">OUR DAY</strong>
-        <table class="cal-table">
-            <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
-            <tr><td></td><td></td><td></td><td class="on">1</td><td class="on">2</td><td class="on">3</td><td class="on">4</td></tr>
-            <tr><td class="on">5</td><td class="on">6</td><td class="on">7</td><td class="on">8</td><td class="on">9</td><td class="on">10</td><td class="on">11</td></tr>
-            <tr><td class="on">12</td><td class="on">13</td><td class="on">14</td><td class="on">15</td><td class="on">16</td><td class="on">17</td><td class="on">18</td></tr>
-            <tr><td class="on">19</td><td class="on">20</td><td class="on">21</td><td class="on">22</td><td class="on">23</td><td class="on">24</td><td class="d-day">25</td></tr>
-            <tr><td class="on">26</td><td class="on">27</td><td class="on">28</td><td class="on">29</td><td class="on">30</td><td></td><td></td></tr>
-        </table>
-    </div>
-
-    <div class="cont-cast" data-aos="fade-up">
-        <strong class="tit-g" style="color:#111; margin-bottom:40px;">CAST</strong>
-        <div class="cast-group">
-            <span class="cast-role">박경태 · 이선영 의 아들</span>
-            <strong class="cast-name">송현수</strong>
-            <span class="cast-en">SONG HYUNSOO</span>
-        </div>
-        <div class="cast-group">
-            <span class="cast-role">김선희 · 이상순 의 딸</span>
-            <strong class="cast-name">김효진</strong>
-            <span class="cast-en">KIM HYOJIN</span>
-        </div>
-        <div style="margin-top:60px; font-family:'Great Vibes'; font-size:2rem; color:#888;">
-            Invitation<br><span style="font-family:'Playfair Display'; font-size:1.5rem;">FOR YOU</span>
-        </div>
-    </div>
-
-    <div class="cont-ticket" data-aos="flip-left">
-        <div class="ticket-card">
-            <div class="ticket-header">
-                <div>
-                    <span style="display:block; font-size:0.7rem; font-weight:700;">VIP TICKET</span>
-                    <span class="t-date">2026. 4. 25. SAT</span>
-                    <span class="t-time">02:00 PM</span>
-                </div>
-                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659784.png" width="40" style="opacity:0.8">
-            </div>
-            <div class="ticket-body">
-                <div class="ticket-rings">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2659/2659265.png" style="width:80px; margin:0 auto; opacity:0.6;">
-                </div>
-            </div>
-            <div class="ticket-footer">
-                <span class="t-place">평택 엔팰리스컨벤션</span>
-                <span class="t-addr">경기 평택시 평택로 32번길 26</span>
-                <div style="margin-top:15px; font-family:'Oswald'; letter-spacing:3px; font-weight:700;">REPOCU</div>
-            </div>
-        </div>
-        <p style="margin-top:20px; font-size:0.8rem; color:#888;">티켓을 캡쳐해서 간직하세요!</p>
-    </div>
-
-    <div class="cont-gallery">
-        <strong class="tit-g">GALLERY</strong>
-        <div class="gallery-wrap">
-            <div class="swiper swiper-gallery">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="./image/1.jpg"></div>
-                    <div class="swiper-slide"><img src="./image/2.jpg"></div>
-                    <div class="swiper-slide"><img src="./image/3.jpg"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cont-location" data-aos="fade-up">
-        <strong class="tit-g">LOCATION</strong>
-        
-        <div class="location-frame">
-            <div class="loc-title">평택 엔팰리스컨벤션</div>
-            <div class="loc-addr">
-                <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" width="14" style="opacity:0.6">
-                경기 평택시 평택로 32번길 26
+    <div class="wrapper">
+        <div class="intro-section" id="intro">
+            <img src="./image/main.jpg" class="intro-bg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&w=800&q=80'">
+            
+            <div class="intro-text-overlay">
+                <span class="intro-invite">
+                    We are getting married.
+                </span>
             </div>
             
-            <div class="box-map">
-                <img src="./image/map.jpg" onerror="this.parentNode.innerText='image 폴더에 map.jpg를 넣어주세요'">
-            </div>
-
-            <a href="https://map.naver.com/v5/search/평택%20엔팰리스컨벤션" target="_blank" class="btn-naver">
-                <img src="https://cdn-icons-png.flaticon.com/512/355/355980.png" width="18" style="filter:brightness(100);">
-                네이버 지도로 보기
-            </a>
-        </div>
-        
-        <div class="way-info">
-            <strong class="way-tit">대중교통 이용 시</strong>
-            <p class="way-desc">평택역 1번 출구에서 도보 5분 거리입니다.</p>
-            <strong class="way-tit">자가용 이용 시</strong>
-            <p class="way-desc">엔팰리스컨벤션 주차장 이용 가능합니다.</p>
-        </div>
-    </div>
-
-    <div class="cont-account" data-aos="fade-up">
-        <strong class="tit-g">ACCOUNT</strong>
-        <p style="text-align:center; margin-bottom:30px; font-size:0.9rem;">마음 전하실 곳</p>
-        
-        <div class="acc-group">
-            <div class="acc-header">
-                <strong>신랑측</strong>
-            </div>
-            <div class="acc-bank">
-                <div><span style="font-size:0.8rem;">신랑</span> <strong>송현수</strong> <div style="font-size:0.8rem;">국민 123-456-7890</div></div>
-                <button class="btn-copy" onclick="alert('복사되었습니다')">복사</button>
-            </div>
-            <div class="acc-bank">
-                <div><span style="font-size:0.8rem;">아버지</span> <strong>송관수</strong> <div style="font-size:0.8rem;">농협 111-222-3333</div></div>
-                <button class="btn-copy" onclick="alert('복사되었습니다')">복사</button>
-            </div>
-            <div class="acc-bank">
-                <div><span style="font-size:0.8rem;">어머니</span> <strong>김영미</strong> <div style="font-size:0.8rem;">국민 555-666-7777</div></div>
-                <button class="btn-copy" onclick="alert('복사되었습니다')">복사</button>
-            </div>
+            <div class="scroll-down">↓</div>
         </div>
 
-        <div class="acc-group">
-            <div class="acc-header">
-                <strong>신부측</strong>
+        <section class="greeting">
+            <span class="section-tit" data-aos="fade-up">INVITATION</span>
+            <div class="section-sub" data-aos="fade-up">소중한 분들을 초대합니다</div>
+            
+            <div class="greeting-photo-box" data-aos="fade-up">
+                <img src="./image/2.jpg" onerror="this.src='https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&w=600&q=80'">
             </div>
-            <div class="acc-bank">
-                <div><span style="font-size:0.8rem;">신부</span> <strong>김효진</strong> <div style="font-size:0.8rem;">우리 098-765-4321</div></div>
-                <button class="btn-copy" onclick="alert('복사되었습니다')">복사</button>
-            </div>
-            <div class="acc-bank">
-                <div><span style="font-size:0.8rem;">아버지</span> <strong>김선희</strong> <div style="font-size:0.8rem;">신한 999-888-7777</div></div>
-                <button class="btn-copy" onclick="alert('복사되었습니다')">복사</button>
-            </div>
-            <div class="acc-bank">
-                <div><span style="font-size:0.8rem;">어머니</span> <strong>이상순</strong> <div style="font-size:0.8rem;">우리 1212-3434-56</div></div>
-                <button class="btn-copy" onclick="alert('복사되었습니다')">복사</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="cont-footer">
-        <strong class="tit-g" style="color:#fff;">SPECIAL</strong>
-        <div class="special-cast">
-            <div style="margin-bottom:20px;">
-                <span class="dog-role">GROOM'S PUPPY</span>
-                <strong class="dog-name">DALKONG</strong>
-                <span>달콩이</span>
+            <div class="poem" data-aos="fade-up">
+                서로가 마주보며 다져온 사랑을<br>
+                이제 함께 한 곳을 바라보며<br>
+                걸어갈 수 있는 큰 사랑으로<br>
+                키우고자 합니다.<br>
+                <br>
+                저희 두 사람이 사랑의 이름으로<br>
+                지켜나갈 수 있게 앞날을<br>
+                축복해 주시면 감사하겠습니다.
             </div>
+
+            <div class="names-area" data-aos="fade-up">
+                <div class="name-row">
+                    <span class="parents">송관수 · 김영미</span>
+                    <span class="relation">의 장남</span> 
+                    <span class="target">현수</span>
+                </div>
+                <div class="name-row">
+                    <span class="parents">김선희 · 이상순</span>
+                    <span class="relation">의 차녀</span> 
+                    <span class="target">효진</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery">
+            <span class="section-tit">Gallery</span>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="./image/1.jpg" onerror="this.src='https://picsum.photos/600/800?random=1'"></div>
+                    <div class="swiper-slide"><img src="./image/2.jpg" onerror="this.src='https://picsum.photos/600/800?random=2'"></div>
+                    <div class="swiper-slide"><img src="./image/3.jpg" onerror="this.src='https://picsum.photos/600/800?random=3'"></div>
+                    <div class="swiper-slide"><img src="./image/4.jpg" onerror="this.src='https://picsum.photos/600/800?random=4'"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <section class="calendar-sec" data-aos="fade-up">
+            <div class="cal-header">April, 2026</div>
+            <table class="cal-table">
+                <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
+                <tr><td></td><td></td><td></td><td class="on">1</td><td class="on">2</td><td class="on">3</td><td class="on">4</td></tr>
+                <tr><td class="on">5</td><td class="on">6</td><td class="on">7</td><td class="on">8</td><td class="on">9</td><td class="on">10</td><td class="on">11</td></tr>
+                <tr><td class="on">12</td><td class="on">13</td><td class="on">14</td><td class="on">15</td><td class="on">16</td><td class="on">17</td><td class="on">18</td></tr>
+                <tr><td class="on">19</td><td class="on">20</td><td class="on">21</td><td class="on">22</td><td class="on">23</td><td class="on">24</td><td class="d-day">25</td></tr>
+                <tr><td class="on">26</td><td class="on">27</td><td class="on">28</td><td class="on">29</td><td class="on">30</td><td></td><td></td></tr>
+            </table>
+            
+            <div class="d-day-bar">
+                송현수 <span style="color:#d4a373">♥</span> 김효진의 결혼식이 <strong id="d-day"></strong>일 남았습니다.
+            </div>
+        </section>
+
+        <section class="location" data-aos="fade-up">
+            <span class="section-tit">Location</span>
+            <div class="section-sub">오시는 길</div>
+            
+            <div class="address-box">
+                <strong>평택 엔팰리스컨벤션</strong>
+                <p>경기 평택시 평택로 32번길 26</p>
+            </div>
+
+            <div class="map-box">
+                <img src="./image/map.jpg" onerror="this.parentNode.innerText='약도 이미지 (image/map.jpg)'">
+            </div>
+
             <div>
-                <span class="dog-role">BRIDE'S PUPPY</span>
-                <strong class="dog-name">KEVIN</strong>
-                <span>케빈</span>
+                <a href="https://map.naver.com/v5/search/평택%20엔팰리스컨벤션" target="_blank" class="btn-map">네이버 지도</a>
+                <a href="https://map.kakao.com/link/search/평택%20엔팰리스컨벤션" target="_blank" class="btn-map">카카오맵</a>
             </div>
-        </div>
+        </section>
 
-        <div style="margin-top:60px;">
-            <span class="footer-logo">THE END</span><br>
-            <span class="copyright">
-                DIRECTED BY HYUNSOO & HYOJIN<br>
-                Thank you for watching.
-            </span>
-        </div>
+        <section class="account" data-aos="fade-up">
+            <span class="section-tit">Account</span>
+            <div class="section-sub">마음 전하실 곳</div>
+            
+            <div class="acc-wrapper">
+                <div class="acc-item">
+                    <div class="acc-head" onclick="toggleAcc(this)">신랑측 계좌번호 <span>∨</span></div>
+                    <div class="acc-body">
+                        <div class="acc-row">
+                            <div><strong>송현수</strong> (국민) 123-456-7890</div>
+                            <button class="btn-copy" onclick="copy('1234567890')">복사</button>
+                        </div>
+                        <div class="acc-row">
+                            <div><strong>송관수</strong> (농협) 111-222-3333</div>
+                            <button class="btn-copy" onclick="copy('1112223333')">복사</button>
+                        </div>
+                         <div class="acc-row">
+                            <div><strong>김영미</strong> (국민) 555-666-7777</div>
+                            <button class="btn-copy" onclick="copy('5556667777')">복사</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="acc-item">
+                    <div class="acc-head" onclick="toggleAcc(this)">신부측 계좌번호 <span>∨</span></div>
+                    <div class="acc-body">
+                        <div class="acc-row">
+                            <div><strong>김효진</strong> (우리) 098-765-4321</div>
+                            <button class="btn-copy" onclick="copy('0987654321')">복사</button>
+                        </div>
+                        <div class="acc-row">
+                            <div><strong>김선희</strong> (신한) 999-888-7777</div>
+                            <button class="btn-copy" onclick="copy('9998887777')">복사</button>
+                        </div>
+                         <div class="acc-row">
+                            <div><strong>이상순</strong> (우리) 1212-3434-56</div>
+                            <button class="btn-copy" onclick="copy('1212343456')">복사</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-names">Hyunsoo & Hyojin</div>
+            <div class="copyright">Copyright 2026. All rights reserved.</div>
+        </footer>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        AOS.init({ duration: 1000 });
-        
-        new Swiper('.swiper-gallery', {
-            slidesPerView: 1.2,
-            centeredSlides: true,
-            spaceBetween: 20,
-            loop: true
+        // 1. 인트로 로딩 효과
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('intro').classList.add('loaded');
+            }, 100); 
+        };
+
+        // 2. 애니메이션 초기화
+        AOS.init({ duration: 1200, once: true });
+
+        // 3. 갤러리
+        new Swiper(".mySwiper", {
+            pagination: { el: ".swiper-pagination", clickable: true },
+            loop: true,
+            autoplay: { delay: 3000 }
         });
 
-        function toggleAudio() {
-            var audio = document.getElementById("bgm");
-            if (audio.paused) audio.play();
-            else audio.pause();
+        // 4. 디데이
+        const diff = new Date('2026-04-25') - new Date();
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('d-day').innerText = days > 0 ? days : "DAY";
+
+        // 5. 아코디언
+        function toggleAcc(header) {
+            const body = header.nextElementSibling;
+            if (body.style.maxHeight) {
+                body.style.maxHeight = null;
+            } else {
+                body.style.maxHeight = body.scrollHeight + "px";
+            }
+        }
+
+        // 6. 복사
+        function copy(text) {
+            navigator.clipboard.writeText(text).then(() => alert("계좌번호가 복사되었습니다."));
         }
     </script>
 </body>
