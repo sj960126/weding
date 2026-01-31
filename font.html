@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>폰트 미리보기</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pinyon+Script&family=Caveat&family=Rock+Salt&family=Gowun+Dodum&family=Gowun+Batang&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { background: #f5f5f5; padding: 40px; font-family: sans-serif; text-align: center; }
+        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 40px; color: #333; font-size: 18px; }
+        .box { margin: 20px 0; padding: 20px; border: 1px solid #eee; border-radius: 8px; }
+        .label { font-size: 12px; color: #999; margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* 핑크색 적용 */
+        .pink { color: #e88ca6; font-size: 40px; line-height: 1.2; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        
+        /* 폰트 적용 클래스 */
+        .f-great-vibes { font-family: 'Great Vibes', cursive; }
+        .f-pinyon { font-family: 'Pinyon Script', cursive; font-size: 45px; } /* 얇아서 좀 더 크게 */
+        .f-caveat { font-family: 'Caveat', cursive; }
+        .f-rock-salt { font-family: 'Rock Salt', cursive; font-size: 28px; } /* 너무 커서 줄임 */
+
+        /* 한글 폰트 */
+        .kor-text { font-size: 16px; color: #333; line-height: 1.6; }
+        .f-noto { font-family: 'Noto Sans KR', sans-serif; }
+        .f-pretendard { font-family: 'Pretendard', sans-serif; }
+        .f-gowun-dodum { font-family: 'Gowun Dodum', sans-serif; }
+        .f-gowun-batang { font-family: 'Gowun Batang', serif; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>폰트 비교하기</h1>
+        <p>가장 마음에 드는 느낌을 골라보세요!</p>
+
+        <h2>1. 영문 필기체 (We're getting Married)</h2>
+
+        <div class="box">
+            <span class="label">1. Great Vibes (우아함/클래식)</span>
+            <div class="pink f-great-vibes">We're getting<br>Married</div>
+            <p style="font-size:12px; color:#aaa;">가장 많이 쓰는 청첩장 국룰 폰트</p>
+        </div>
+
+        <div class="box">
+            <span class="label">2. Pinyon Script (귀족적/고급짐)</span>
+            <div class="pink f-pinyon">We're getting<br>Married</div>
+            <p style="font-size:12px; color:#aaa;">펜촉으로 쓴 듯 얇고 섬세한 호텔 예식 느낌</p>
+        </div>
+
+        <div class="box">
+            <span class="label">3. Caveat (손글씨/캐주얼) - 현재 적용</span>
+            <div class="pink f-caveat">We're getting<br>Married</div>
+            <p style="font-size:12px; color:#aaa;">펜으로 슥슥 쓴 듯한 자연스럽고 따뜻한 느낌</p>
+        </div>
+
+        <div class="box">
+            <span class="label">4. Rock Salt (힙함/거친 붓)</span>
+            <div class="pink f-rock-salt">We're getting<br>Married</div>
+            <p style="font-size:12px; color:#aaa;">아까 사진 보여주신 그 거친 마커 느낌</p>
+        </div>
+
+        <h2>2. 한글 본문 (초대 문구)</h2>
+
+        <div class="box">
+            <span class="label">A. Pretendard (프리텐다드) - 현재 적용</span>
+            <div class="kor-text f-pretendard">
+                <strong>송현수 & 김효진</strong><br>
+                서로 아껴주고 이해하며<br>
+                사랑 베풀며 살고 싶습니다.
+            </div>
+            <p style="font-size:12px; color:#aaa;">요즘 가장 많이 쓰는 깔끔/모던한 스타일</p>
+        </div>
+
+        <div class="box">
+            <span class="label">B. 고운 돋움 (Gowun Dodum)</span>
+            <div class="kor-text f-gowun-dodum">
+                <strong>송현수 & 김효진</strong><br>
+                서로 아껴주고 이해하며<br>
+                사랑 베풀며 살고 싶습니다.
+            </div>
+            <p style="font-size:12px; color:#aaa;">동글동글하고 서정적인 부드러운 느낌</p>
+        </div>
+
+        <div class="box">
+            <span class="label">C. 고운 바탕 (Gowun Batang)</span>
+            <div class="kor-text f-gowun-batang">
+                <strong>송현수 & 김효진</strong><br>
+                서로 아껴주고 이해하며<br>
+                사랑 베풀며 살고 싶습니다.
+            </div>
+            <p style="font-size:12px; color:#aaa;">시집 같은 감성의 명조체</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
