@@ -384,8 +384,49 @@
         color: #fff; 
         border-color: var(--point-color); 
     }
+    /* [함께한 시간 섹션 스타일] */
+    .love_time_sec {
+        background-color: #fff; 
+        padding-bottom: 50px;
+    }
+
+    /* 타이머 텍스트 스타일 */
+    .love_timer_text {
+        font-family: 'Gowun Batang', serif; /* 감성적인 명조체 */
+        font-size: 19px; /* 글씨 크기 적당히 키움 */
+        color: #555;
+        margin: 30px 0 50px; /* 위아래 여백 */
+        letter-spacing: 0.5px;
+        font-weight: 400;
+    }
+
+    /* 사진 영역 */
+    .love_img_wrap {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+    .love_img_wrap img {
+        width: 100%;
+        display: block;
+        /* 사진에 살짝 어두운 필터를 씌워 글씨가 잘 보이게 하려면 아래 주석 해제 */
+        /* filter: brightness(0.9); */
+    }
+
+    /* 사진 위 텍스트 (행복하게 잘 살겠습니다) */
+    .img_overlay_text {
+        position: absolute;
+        top: 30px; /* 사진 위에서의 위치 */
+        width: 100%;
+        text-align: center;
+        color: #fff; /* 흰색 글씨 */
+        font-size: 16px;
+        font-family: 'Pretendard', sans-serif;
+        text-shadow: 0 1px 5px rgba(0,0,0,0.5); /* 그림자 */
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
     
-     footer { background: #f9f9f9; padding: 60px 0; font-size: 12px; color: #aaa; letter-spacing: 1px;}
     </style>
 </head>
 <body>
@@ -552,7 +593,7 @@
         </section>
         
         <section class="money_gift_sec" data-aos="fade-up">
-        <h3 style="font-family:'Pinyon Script', cursive; font-size:45px; margin-bottom:10px;">For Your Heart</h3>
+        <h3>마음 전하실 곳 </h3>
         <p style="margin-bottom: 30px; font-size:15px; color:#777;">축하의 마음을 담아 보내주세요</p>
 
         <div class="gift_box_wrap">
@@ -560,7 +601,7 @@
             <div class="gift_box">
                 <div class="gift_header" onclick="toggleGift(this)">
                     <div class="gift_title_area">
-                        <i class="xi-man"></i> <span>신랑측 마음 전하실 곳</span>
+                        <i class="xi-man"></i> <span>신랑측 계좌번호</span>
                     </div>
                     <i class="xi-angle-down arrow_icon"></i>
                 </div>
@@ -592,7 +633,7 @@
             <div class="gift_box">
                 <div class="gift_header" onclick="toggleGift(this)">
                     <div class="gift_title_area">
-                        <i class="xi-woman"></i> <span>신부측 마음 전하실 곳</span>
+                        <i class="xi-woman"></i> <span>신부측 계좌번호</span>
                     </div>
                     <i class="xi-angle-down arrow_icon"></i>
                 </div>
@@ -624,10 +665,19 @@
         </div>
     </section>
 
-        <footer>
-            THE WEDDING DAY OF HYUNSOO & HYOJIN<br>
-            Copyright 2026. All rights reserved.
-        </footer>
+    <section class="love_time_sec" data-aos="fade-up">
+        <h3>함께한 시간</h3>
+        
+        <div id="love_timer" class="love_timer_text">
+            "0년 0개월 0일 0시간 0분 0초"
+        </div>
+
+        <div class="love_img_wrap">
+            <img src="image/couple.jpg" alt="우리 사진" onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#eee'; this.parentNode.style.height='300px';">
+            <div class="img_overlay_text">행복하게 잘 살겠습니다 :)</div>
+        </div>
+    </section>
+
     </div>
 
     <script>
@@ -686,6 +736,44 @@
             // 알림 메시지 (원하시면 내용을 수정하세요)
             alert("계좌번호가 복사되었습니다."); 
         }
+        function startRealTimeLoveTimer() {
+        // 우리가 만난 날 (2024년 1월 1일)
+        const startDate = new Date("2024-01-01T00:00:00");
+
+        setInterval(function() {
+            const now = new Date();
+            
+            // 시간 차이 계산
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+            let hours = now.getHours() - startDate.getHours();
+            let minutes = now.getMinutes() - startDate.getMinutes();
+            let seconds = now.getSeconds() - startDate.getSeconds();
+
+            // 음수 보정 (단위 빌려오기)
+            if (seconds < 0) { seconds += 60; minutes--; }
+            if (minutes < 0) { minutes += 60; hours--; }
+            if (hours < 0) { hours += 24; days--; }
+            if (days < 0) {
+                // 이전 달의 마지막 날짜를 구해서 더함
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+                months--;
+            }
+            if (months < 0) { months += 12; years--; }
+
+            // 화면에 표시할 문자열 만들기
+            const timeString = `"${years}년 ${months}개월 ${days}일 ${hours}시간 ${minutes}분 ${seconds}초"`;
+            
+            // HTML에 넣기
+            $('#love_timer').text(timeString);
+
+        }, 1000); // 1초마다 갱신
+    }
+
+    // 타이머 시작
+    startRealTimeLoveTimer();
     </script>
 </body>
 </html>
