@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:image" content="image/thumb.jpg"> 
     <title>송현수 & 김효진 결혼합니다</title>
 
@@ -18,17 +18,26 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
-        /* [기본 스타일] */
-        * { box-sizing: border-box; }
-        body { 
+        /* [기본 스타일 및 스크롤 성능 최적화] */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html, body { 
             margin: 0; padding: 0; 
             font-family: 'Pretendard', sans-serif;
             background: #fff; color: #333; line-height: 1.7; word-break: keep-all;
+            
+            /* [중요] 스크롤 주체를 body로 설정 (버벅임 해결 핵심) */
+            overflow-x: hidden; 
+            -webkit-overflow-scrolling: touch; /* 아이폰 부드러운 스크롤 */
+            touch-action: pan-y;
         }
         
         #user_wrap { 
             max-width: 450px; margin: 0 auto; background: #fff; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.05); overflow-x: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05); 
+            /* [중요] 여기서 overflow hidden 제거 (모바일 렉 원인) */
+            overflow-x: visible; 
+            position: relative;
         }
 
         section { padding: 90px 20px; text-align: center; }
@@ -38,29 +47,48 @@
         h3 { font-family: 'Pretendard', sans-serif; font-size: 18px; color: var(--point-color); margin-bottom: 15px; font-weight: 500; letter-spacing: 0.05em; }
         p { font-size: 15px; margin: 0 0 10px; color: #555; font-weight: 400; }
 
-        /* [메인 비주얼] */
+        /* [메인 비주얼 구조 변경] */
         .main_visual {
-            position: relative; width: 100%; height: 100vh; 
-            background: url('image/main.jpg') no-repeat center center/cover;
-            background-color: #ddd; 
+            position: relative; width: 100%; 
+            
+            /* [중요] 100vh 대신 100dvh 사용 (주소창 움직임에 따른 렉 방지) */
+            height: 100vh;
+            height: 100dvh; 
+
+            overflow: hidden;
+            background-color: #eee; /* 이미지 로딩 전 잠깐 보일 색상 */
+            
+            /* GPU 가속 강제 */
+            transform: translateZ(0); 
+            will-change: transform;
         }
+
+        /* [중요] 배경 이미지를 CSS가 아닌 img 태그로 처리 */
+        .main_bg_img {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; /* 배경처럼 꽉 차게 */
+            object-position: center;
+            z-index: 0;
+        }
+
         .main_visual::after {
             content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
             background: rgba(0,0,0,0.50); z-index: 1; 
             animation: dimToBright 2s ease-in-out forwards; animation-delay: 3.5s; 
         }
-        .main_text_box { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
 
         .intro_container {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 100%; text-align: center;
             animation: fadeOut 1s ease-out forwards; animation-delay: 3.5s; 
+            z-index: 10; /* 이미지 위로 올림 */
         }
         .intro_text {
             font-family: 'Pinyon Script', cursive; font-size: 34px; color: #e88ca6;
             font-weight: 300; text-shadow: 0 0 20px rgba(255,255,255,0.3); line-height: 1.2;
         }
-        .script_container { position: absolute; top: 60%; left: 0; right: 0; text-align: center; }
+        .script_container { position: absolute; top: 60%; left: 0; right: 0; text-align: center; z-index: 10; }
         .script_line {
             font-family: 'Pinyon Script', cursive; font-size: 42px; color: #e88ca6;
             line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.1); font-weight: 300;
@@ -115,7 +143,7 @@
         .navi_btn_wrap { display: flex; gap: 10px; margin-top: 25px; margin-bottom: 50px; }
         .btn_navi { flex: 1; padding: 13px 0; background: #fff; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #333; text-decoration: none; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .btn_navi:hover { background: #f9f9f9; border-color: #bbb; transform: translateY(-2px); }
-        .map_icon { width: 18px; height: 18px; margin-right: 6px; display: inline-block; vertical-align: middle; border-radius: 2px; }
+        .map_icon { width: 18px; height: 18px; margin-right: 6px; display: inline-block; vertical-align: middle; border-radius: 4px; /* 라운드 처리 */ }
 
         .transport_list { text-align: left; padding: 0 10px; }
         .trans_item { margin-bottom: 35px; }
@@ -163,6 +191,8 @@
     <div id="user_wrap">
         
         <div class="main_visual">
+            <img src="image/main.jpg" class="main_bg_img" alt="메인 배경" fetchpriority="high">
+            
             <div class="intro_container">
                 <p class="intro_text writing_text">Welcome to Our Wedding</p>
             </div>
@@ -178,7 +208,7 @@
             </div>
             <p>
                 당신과 함께한 평범한 하루들이 저를 행복하게 만들었습니다.<br>
-                이제 그 하루들을 평생으로 이어가려 합니다.<br>
+                서로 아껴주고 이해하며<br>
             </p>
         </section>
 
@@ -365,7 +395,12 @@
 
     <script>
         $(document).ready(function(){
-            AOS.init({ duration: 1200, once: true });
+            // [AOS 초기화 최적화] 모바일에서 너무 늦게 뜨지 않도록 offset, duration 조정
+            AOS.init({ 
+                duration: 1000, 
+                once: true,
+                offset: 50 // 조금만 스크롤해도 보이게
+            });
 
             var weddingDate = new Date($('#weddingDateTime').val()).getTime();
             var today = new Date().getTime();
