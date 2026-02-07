@@ -2,40 +2,33 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content="image/thumb.jpg"> 
     <title>송현수 & 김효진 결혼합니다</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
     <link rel="preload" as="image" href="image/main.jpg">
 
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
-        /* [기본 스타일 및 스크롤 성능 최적화] */
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        html, body { 
+        /* [기본 스타일] */
+        * { box-sizing: border-box; }
+        body { 
             margin: 0; padding: 0; 
             font-family: 'Pretendard', sans-serif;
             background: #fff; color: #333; line-height: 1.7; word-break: keep-all;
-            /* 모바일 스크롤 성능 핵심 */
-            overflow-x: hidden; 
-            -webkit-overflow-scrolling: touch; 
         }
         
         #user_wrap { 
             max-width: 450px; margin: 0 auto; background: #fff; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.05);
-            /* 불필요한 overflow 제거 */
-            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05); overflow-x: hidden;
         }
 
         section { padding: 90px 20px; text-align: center; }
@@ -48,31 +41,26 @@
         /* [메인 비주얼] */
         .main_visual {
             position: relative; width: 100%; height: 100vh; 
-            /* 이미지 깜빡임 방지 */
+            background: url('image/main.jpg') no-repeat center center/cover;
             background-color: #ddd; 
-            background-image: url('image/main.jpg');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            will-change: transform; /* 렌더링 힌트 */
         }
         .main_visual::after {
             content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
             background: rgba(0,0,0,0.50); z-index: 1; 
-            animation: dimToBright 2s ease-in-out forwards; animation-delay: 3.0s; 
+            animation: dimToBright 2s ease-in-out forwards; animation-delay: 3.5s; 
         }
-        
+        .main_text_box { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
+
         .intro_container {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 100%; text-align: center;
             animation: fadeOut 1s ease-out forwards; animation-delay: 3.5s; 
-            z-index: 20;
         }
         .intro_text {
             font-family: 'Pinyon Script', cursive; font-size: 34px; color: #e88ca6;
             font-weight: 300; text-shadow: 0 0 20px rgba(255,255,255,0.3); line-height: 1.2;
         }
-        .script_container { position: absolute; top: 60%; left: 0; right: 0; text-align: center; z-index: 10; }
+        .script_container { position: absolute; top: 60%; left: 0; right: 0; text-align: center; }
         .script_line {
             font-family: 'Pinyon Script', cursive; font-size: 42px; color: #e88ca6;
             line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.1); font-weight: 300;
@@ -81,12 +69,13 @@
             opacity: 0; display: inline-block; transform: translateY(5px);
             animation: writeEffect 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
         }
-        
+        .line2 { margin-left: 30px; }
+
         @keyframes dimToBright { from { background: rgba(0,0,0,0.65); } to { background: rgba(0,0,0,0.1); } }
         @keyframes writeEffect { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -60%); pointer-events: none; } }
 
-        /* [기타 스타일 유지] */
+        /* [섹션별 스타일] */
         .invitation { font-family: 'Pretendard', sans-serif; text-align: center; padding: 80px 24px; background-color: #fff; color: #444; }
         .poem_area { font-size: 15px; font-weight: 400; color: #555; line-height: 1.6; margin-bottom: 50px; }
         .invitation p { font-size: 16px; font-weight: 300; line-height: 2.2; word-break: keep-all; letter-spacing: -0.02em; }
@@ -126,7 +115,7 @@
         .navi_btn_wrap { display: flex; gap: 10px; margin-top: 25px; margin-bottom: 50px; }
         .btn_navi { flex: 1; padding: 13px 0; background: #fff; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #333; text-decoration: none; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .btn_navi:hover { background: #f9f9f9; border-color: #bbb; transform: translateY(-2px); }
-        .map_icon { width: 18px; height: 18px; margin-right: 6px; display: inline-block; vertical-align: middle; }
+        .map_icon { width: 18px; height: 18px; margin-right: 6px; display: inline-block; vertical-align: middle; border-radius: 4px; }
 
         .transport_list { text-align: left; padding: 0 10px; }
         .trans_item { margin-bottom: 35px; }
@@ -136,36 +125,20 @@
         .trans_desc { font-size: 15px; color: #555; line-height: 1.7; padding-left: 2px; }
         .trans_desc span { display: block; margin-bottom: 4px; }
 
-        /* [성능 개선] 계좌번호 아코디언 애니메이션 CSS 처리 */
         .money_gift_sec { padding-top: 60px; padding-bottom: 80px; background-color: #f9f9f9; }
         .gift_box_wrap { width: 90%; max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
         .gift_box { background: #fff; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.03); overflow: hidden; }
-        
-        .gift_header { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; cursor: pointer; background: #fff; transition: background-color 0.2s; }
-        .gift_header:active { background-color: #f5f5f5; }
+        .gift_header { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; cursor: pointer; background: #fff; transition: all 0.2s; }
+        .gift_header:hover { background-color: #fafafa; }
         .gift_header.active { background: #fcfcfc; color: var(--point-color); }
         .gift_header.active .gift_title_area i { color: var(--point-color); }
         .gift_title_area { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; }
         .gift_title_area i { font-size: 20px; color: #aaa; } 
         
-        .arrow_icon { display: inline-block; width: 10px; height: 10px; border-right: 2px solid #ccc; border-bottom: 2px solid #ccc; transform: rotate(45deg); transition: transform 0.3s ease; margin-bottom: 4px; }
+        .arrow_icon { display: inline-block; width: 10px; height: 10px; border-right: 2px solid #ccc; border-bottom: 2px solid #ccc; transform: rotate(45deg); transition: all 0.3s; margin-bottom: 4px; }
         .gift_header.active .arrow_icon { transform: rotate(-135deg); border-color: var(--point-color); }
 
-        /* CSS Grid를 이용한 부드러운 아코디언 (JavaScript slideToggle 대체) */
-        .gift_content_wrap { 
-            display: grid; 
-            grid-template-rows: 0fr; 
-            transition: grid-template-rows 0.3s ease-out; 
-            background: #fdfdfd; 
-            border-top: 1px solid transparent; 
-        }
-        .gift_header.active + .gift_content_wrap { 
-            grid-template-rows: 1fr; 
-            border-top-color: #f0f0f0; 
-        }
-        .gift_content { overflow: hidden; }
-        .gift_inner { padding: 10px 20px 25px; }
-
+        .gift_content { display: none; background: #fdfdfd; padding: 10px 20px 25px; border-top: 1px solid #f0f0f0; }
         .account_row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
         .account_row:last-child { border-bottom: none; }
         .acc_info { text-align: left; }
@@ -174,7 +147,7 @@
         .acc_num { font-size: 15px; color: #333; font-weight: 500; letter-spacing: 0; }
         .acc_bank { font-weight: 400; margin-right: 4px; }
         .btn_copy { padding: 6px 14px; border: 1px solid #e0e0e0; background: #fff; font-size: 12px; border-radius: 6px; color: #666; cursor: pointer; transition: all 0.2s; }
-        .btn_copy:active { background: var(--point-color); color: #fff; border-color: var(--point-color); }
+        .btn_copy:hover { background: var(--point-color); color: #fff; border-color: var(--point-color); }
 
         .love_time_sec { background-color: #fff; padding-bottom: 50px; }
         .love_timer_text { font-family: 'Gowun Batang', serif; font-size: 19px; color: #555; margin: 30px 0 50px; letter-spacing: 0.5px; font-weight: 400; }
@@ -215,7 +188,7 @@
         <section class="profile_sec" data-aos="fade-up">
             <div class="profile_wrap">
                 <div class="profile_box">
-                    <div class="profile_img"><img src="image/1.jpg" alt="신랑" loading="lazy" onerror="this.parentNode.style.backgroundColor='#ddd'"></div>
+                    <div class="profile_img"><img src="image/1.jpg" alt="신랑" onerror="this.parentNode.style.backgroundColor='#ddd'"></div>
                     <span class="name_ko">송 현 수</span>
                     <span class="name_en">Song Hyunsoo</span>
                     <span class="info_line"><i class="xi-laptop"></i> IT Developer</span>
@@ -223,7 +196,7 @@
                     <div class="parents_info">송관수 · 김영미 <span>의 장남</span></div>
                 </div>
                 <div class="profile_box">
-                    <div class="profile_img"><img src="image/1.jpg" alt="신부" loading="lazy" onerror="this.parentNode.style.backgroundColor='#ddd'"></div>
+                    <div class="profile_img"><img src="image/1.jpg" alt="신부" onerror="this.parentNode.style.backgroundColor='#ddd'"></div>
                     <span class="name_ko">김 효 진</span>
                     <span class="name_en">Kim Hyojin</span>
                     <span class="info_line"><i class="xi-palette"></i> Designer</span>
@@ -264,21 +237,21 @@
         <section style="background:#fff;" data-aos="fade-up">
             <h3>갤러리</h3>
             <div class="gallery_grid">
-                <div class="gallery_item"><img src="image/gallery1.jpg" loading="lazy" alt="갤러리1"></div>
-                <div class="gallery_item"><img src="image/gallery2.jpg" loading="lazy" alt="갤러리2"></div>
-                <div class="gallery_item"><img src="image/gallery3.jpg" loading="lazy" alt="갤러리3"></div>
-                <div class="gallery_item"><img src="image/gallery4.jpg" loading="lazy" alt="갤러리4"></div>
-                <div class="gallery_item"><img src="image/gallery5.jpg" loading="lazy" alt="갤러리5"></div>
-                <div class="gallery_item"><img src="image/gallery6.jpg" loading="lazy" alt="갤러리6"></div>
-                <div class="gallery_item"><img src="image/gallery7.jpg" loading="lazy" alt="갤러리7"></div>
-                <div class="gallery_item"><img src="image/gallery8.jpg" loading="lazy" alt="갤러리8"></div>
-                <div class="gallery_item"><img src="image/gallery9.jpg" loading="lazy" alt="갤러리9"></div>
-                <div class="gallery_item"><img src="image/gallery10.jpg" loading="lazy" alt="갤러리10"></div>
-                <div class="gallery_item"><img src="image/gallery11.jpg" loading="lazy" alt="갤러리11"></div>
-                <div class="gallery_item"><img src="image/gallery12.jpg" loading="lazy" alt="갤러리12"></div>
-                <div class="gallery_item"><img src="image/gallery13.jpg" loading="lazy" alt="갤러리13"></div>
-                <div class="gallery_item"><img src="image/gallery14.jpg" loading="lazy" alt="갤러리14"></div>
-                <div class="gallery_item"><img src="image/gallery15.jpg" loading="lazy" alt="갤러리15"></div>
+                <div class="gallery_item"><img src="image/gallery1.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery2.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery3.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery4.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery5.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery6.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery7.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery8.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery9.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery10.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery11.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery12.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery13.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery14.jpg" loading="lazy" onerror="this.style.display='none'"></div>
+                <div class="gallery_item"><img src="image/gallery15.jpg" loading="lazy" onerror="this.style.display='none'"></div>
             </div>
         </section>
 
@@ -289,7 +262,7 @@
             <div style="font-size:15px; color:#777; margin-bottom: 20px;">Tel. 02-3453-9770</div>
             
             <div class="map_img_area">
-                <img src="image/map.jpg" loading="lazy" alt="약도 이미지">
+                <img src="image/map.jpg" loading="lazy" alt="약도 이미지" onerror="this.src='https://dummyimage.com/600x350/eee/aaa?text=Map+Image'">
             </div>
 
             <div class="navi_btn_wrap">
@@ -339,51 +312,43 @@
 
             <div class="gift_box_wrap">
                 <div class="gift_box">
-                    <div class="gift_header">
+                    <div class="gift_header" onclick="toggleGift(this)">
                         <div class="gift_title_area"><i class="xi-man"></i> <span>신랑측 계좌번호</span></div>
                         <span class="arrow_icon"></span>
                     </div>
-                    <div class="gift_content_wrap">
-                        <div class="gift_content">
-                            <div class="gift_inner">
-                                <div class="account_row">
-                                    <div class="acc_info"><span class="acc_who">신랑 <strong>송현수</strong></span><span class="acc_num"><span class="acc_bank">카카오뱅크</span> 3333-00-0000000</span></div>
-                                    <button class="btn_copy" data-account="3333-00-0000000">복사</button>
-                                </div>
-                                <div class="account_row">
-                                    <div class="acc_info"><span class="acc_who">아버지 <strong>송관수</strong></span><span class="acc_num"><span class="acc_bank">국민은행</span> 000-000-000000</span></div>
-                                    <button class="btn_copy" data-account="000-000-000000">복사</button>
-                                </div>
-                                <div class="account_row">
-                                    <div class="acc_info"><span class="acc_who">어머니 <strong>김영미</strong></span><span class="acc_num"><span class="acc_bank">농협</span> 000-000-000000</span></div>
-                                    <button class="btn_copy" data-account="000-000-000000">복사</button>
-                                </div>
-                            </div>
+                    <div class="gift_content">
+                        <div class="account_row">
+                            <div class="acc_info"><span class="acc_who">신랑 <strong>송현수</strong></span><span class="acc_num"><span class="acc_bank">카카오뱅크</span> 3333-00-0000000</span></div>
+                            <button class="btn_copy" onclick="copyToClipboard('3333-00-0000000')">복사</button>
+                        </div>
+                        <div class="account_row">
+                            <div class="acc_info"><span class="acc_who">아버지 <strong>송관수</strong></span><span class="acc_num"><span class="acc_bank">국민은행</span> 000-000-000000</span></div>
+                            <button class="btn_copy" onclick="copyToClipboard('000-000-000000')">복사</button>
+                        </div>
+                        <div class="account_row">
+                            <div class="acc_info"><span class="acc_who">어머니 <strong>김영미</strong></span><span class="acc_num"><span class="acc_bank">농협</span> 000-000-000000</span></div>
+                            <button class="btn_copy" onclick="copyToClipboard('000-000-000000')">복사</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="gift_box">
-                    <div class="gift_header">
+                    <div class="gift_header" onclick="toggleGift(this)">
                         <div class="gift_title_area"><i class="xi-woman"></i> <span>신부측 계좌번호</span></div>
                         <span class="arrow_icon"></span>
                     </div>
-                    <div class="gift_content_wrap">
-                        <div class="gift_content">
-                            <div class="gift_inner">
-                                <div class="account_row">
-                                    <div class="acc_info"><span class="acc_who">신부 <strong>김효진</strong></span><span class="acc_num"><span class="acc_bank">토스뱅크</span> 1000-00-000000</span></div>
-                                    <button class="btn_copy" data-account="1000-00-000000">복사</button>
-                                </div>
-                                <div class="account_row">
-                                    <div class="acc_info"><span class="acc_who">아버지 <strong>김선희</strong></span><span class="acc_num"><span class="acc_bank">신한은행</span> 110-000-000000</span></div>
-                                    <button class="btn_copy" data-account="110-000-000000">복사</button>
-                                </div>
-                                <div class="account_row">
-                                    <div class="acc_info"><span class="acc_who">어머니 <strong>이상순</strong></span><span class="acc_num"><span class="acc_bank">우리은행</span> 1002-000-000000</span></div>
-                                    <button class="btn_copy" data-account="1002-000-000000">복사</button>
-                                </div>
-                            </div>
+                    <div class="gift_content">
+                        <div class="account_row">
+                            <div class="acc_info"><span class="acc_who">신부 <strong>김효진</strong></span><span class="acc_num"><span class="acc_bank">토스뱅크</span> 1000-00-000000</span></div>
+                            <button class="btn_copy" onclick="copyToClipboard('1000-00-000000')">복사</button>
+                        </div>
+                        <div class="account_row">
+                            <div class="acc_info"><span class="acc_who">아버지 <strong>김선희</strong></span><span class="acc_num"><span class="acc_bank">신한은행</span> 110-000-000000</span></div>
+                            <button class="btn_copy" onclick="copyToClipboard('110-000-000000')">복사</button>
+                        </div>
+                        <div class="account_row">
+                            <div class="acc_info"><span class="acc_who">어머니 <strong>이상순</strong></span><span class="acc_num"><span class="acc_bank">우리은행</span> 1002-000-000000</span></div>
+                            <button class="btn_copy" onclick="copyToClipboard('1002-000-000000')">복사</button>
                         </div>
                     </div>
                 </div>
@@ -402,115 +367,79 @@
     </div>
 
     <script>
-        // Vanilla JS (No jQuery)
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. AOS 초기화 (모바일 성능 최적화)
-            AOS.init({ 
-                duration: 800, // 1.2초 -> 0.8초로 단축
-                once: true,    // 한번만 실행
-                offset: 50,    // 반응성 향상
-                disable: 'mobile' // 모바일 끊김이 심하면 이 주석을 해제하세요
-            });
+        $(document).ready(function(){
+            AOS.init({ duration: 1200, once: true });
 
-            // 2. D-Day 계산
-            const weddingInput = document.getElementById('weddingDateTime');
-            const ddayCount = document.getElementById('dday_count');
-            const ddayWrapper = document.querySelector('.dday_wrapper');
+            var weddingDate = new Date($('#weddingDateTime').val()).getTime();
+            var today = new Date().getTime();
+            var distance = weddingDate - today;
+            var dday = Math.ceil(distance / (1000 * 60 * 60 * 24));
 
-            if (weddingInput && ddayCount) {
-                const weddingDate = new Date(weddingInput.value).getTime();
-                const today = new Date().getTime();
-                const distance = weddingDate - today;
-                const dday = Math.ceil(distance / (1000 * 60 * 60 * 24));
-
-                if (dday > 0) {
-                    ddayCount.textContent = dday;
-                } else if (dday === 0) {
-                    ddayCount.textContent = "D-Day";
-                } else {
-                    ddayCount.textContent = Math.abs(dday);
-                    ddayWrapper.innerHTML = '송현수 <span style="color:var(--point-color); font-size:13px;">♥</span> 김효진의 결혼식이 <div class="dday_count_circle">' + Math.abs(dday) + '</div>일 지났습니다.';
-                }
+            if (dday > 0) $('#dday_count').text(dday);
+            else if (dday === 0) $('#dday_count').text("D-Day");
+            else {
+                $('#dday_count').text(Math.abs(dday));
+                $('.dday_wrapper').html('도연 ♥ 지유의 결혼식이 <div class="dday_count_circle">' + Math.abs(dday) + '</div>일 지났습니다.');
             }
 
-            // 3. 텍스트 애니메이션 (span 쪼개기)
-            document.querySelectorAll('.writing_text').forEach(function(element) {
-                const content = element.textContent;
-                let newHtml = '';
-                let startDelay = 0.5;
-                
-                if (element.classList.contains('intro_text')) startDelay = 0.5;
-                else if (element.classList.contains('line1')) startDelay = 3.5; // 시간 단축
-                else if (element.classList.contains('line2')) startDelay = 4.5; // 시간 단축
+            $('.writing_text').each(function(index){
+                var content = $(this).text();
+                var newHtml = '';
+                var startDelay = 0.5; 
+                if($(this).hasClass('intro_text')) startDelay = 0.5;
+                else if($(this).hasClass('line1')) startDelay = 4.0;
+                else if($(this).hasClass('line2')) startDelay = 5.2;
 
-                for (let i = 0; i < content.length; i++) {
-                    const char = content[i] === ' ' ? '&nbsp;' : content[i];
-                    const delay = startDelay + (i * 0.08);
-                    newHtml += `<span style="animation-delay:${delay}s">${char}</span>`;
+                for(var i=0; i<content.length; i++) {
+                    var char = content[i] == ' ' ? '&nbsp;' : content[i];
+                    var delay = startDelay + (i * 0.08); 
+                    newHtml += '<span style="animation-delay:' + delay + 's">' + char + '</span>';
                 }
-                element.innerHTML = newHtml;
+                $(this).html(newHtml);
             });
-
-            // 4. 계좌번호 아코디언 토글 (이벤트 위임 사용)
-            document.querySelectorAll('.gift_header').forEach(header => {
-                header.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    // CSS Grid로 처리하므로 JS 애니메이션 로직 불필요
-                });
-            });
-
-            // 5. 계좌번호 복사 (이벤트 위임 & Modern API)
-            document.querySelector('.money_gift_sec').addEventListener('click', function(e) {
-                if(e.target.classList.contains('btn_copy')) {
-                    const account = e.target.getAttribute('data-account');
-                    if (account) {
-                        navigator.clipboard.writeText(account).then(() => {
-                            alert("계좌번호가 복사되었습니다.");
-                        }).catch(err => {
-                            // 구형 브라우저 대응 (Fallback)
-                            const textArea = document.createElement("textarea");
-                            textArea.value = account;
-                            document.body.appendChild(textArea);
-                            textArea.select();
-                            document.execCommand("Copy");
-                            textArea.remove();
-                            alert("계좌번호가 복사되었습니다.");
-                        });
-                    }
-                }
-            });
-
-            // 6. 실시간 타이머
-            function startRealTimeLoveTimer() {
-                const startDate = new Date("2024-01-01T00:00:00");
-                const timerElement = document.getElementById('love_timer');
-                
-                if(!timerElement) return;
-
-                setInterval(function() {
-                    const now = new Date();
-                    let years = now.getFullYear() - startDate.getFullYear();
-                    let months = now.getMonth() - startDate.getMonth();
-                    let days = now.getDate() - startDate.getDate();
-                    let hours = now.getHours() - startDate.getHours();
-                    let minutes = now.getMinutes() - startDate.getMinutes();
-                    let seconds = now.getSeconds() - startDate.getSeconds();
-
-                    if (seconds < 0) { seconds += 60; minutes--; }
-                    if (minutes < 0) { minutes += 60; hours--; }
-                    if (hours < 0) { hours += 24; days--; }
-                    if (days < 0) {
-                        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                        days += prevMonth.getDate();
-                        months--;
-                    }
-                    if (months < 0) { months += 12; years--; }
-
-                    timerElement.textContent = `"${years}년 ${months}개월 ${days}일 ${hours}시간 ${minutes}분 ${seconds}초"`;
-                }, 1000); 
-            }
-            startRealTimeLoveTimer();
         });
+
+        function toggleGift(header) {
+            var content = header.nextElementSibling;
+            $(content).slideToggle(300);
+            $(header).toggleClass('active');
+        }
+
+        function copyToClipboard(text) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(text).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("계좌번호가 복사되었습니다."); 
+        }
+
+        function startRealTimeLoveTimer() {
+            const startDate = new Date("2024-01-01T00:00:00");
+            setInterval(function() {
+                const now = new Date();
+                let years = now.getFullYear() - startDate.getFullYear();
+                let months = now.getMonth() - startDate.getMonth();
+                let days = now.getDate() - startDate.getDate();
+                let hours = now.getHours() - startDate.getHours();
+                let minutes = now.getMinutes() - startDate.getMinutes();
+                let seconds = now.getSeconds() - startDate.getSeconds();
+
+                if (seconds < 0) { seconds += 60; minutes--; }
+                if (minutes < 0) { minutes += 60; hours--; }
+                if (hours < 0) { hours += 24; days--; }
+                if (days < 0) {
+                    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                    days += prevMonth.getDate();
+                    months--;
+                }
+                if (months < 0) { months += 12; years--; }
+
+                const timeString = `"${years}년 ${months}개월 ${days}일 ${hours}시간 ${minutes}분 ${seconds}초"`;
+                $('#love_timer').text(timeString);
+            }, 1000); 
+        }
+        startRealTimeLoveTimer();
     </script>
 </body>
 </html>
