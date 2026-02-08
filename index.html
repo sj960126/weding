@@ -78,17 +78,10 @@
             animation: dimToBright 2s ease-in-out forwards; animation-delay: 3.5s; 
         }
 
-        .intro_container {
-            position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%);
-            width: 100%; text-align: center;
-            animation: fadeOut 1s ease-out forwards; animation-delay: 3.5s; 
-            z-index: 10; /* 이미지 위로 올림 */
-        }
-        .intro_text {
-            font-family: 'Pinyon Script', cursive; font-size: 34px; color: #ffffff;
-            font-weight: 300; text-shadow: 0 0 20px rgba(255,255,255,0.3); line-height: 1.2;
-        }
-        .script_container { position: absolute; top: 80%; left: 0; right: 0; text-align: center; z-index: 10; }
+        /* intro_container 관련 스타일 삭제됨 */
+
+        /* script_container 위치를 조금 위(75%)로 조정하여 균형 맞춤 */
+        .script_container { position: absolute; top: 75%; left: 0; right: 0; text-align: center; z-index: 10; }
         .script_line {
             font-family: 'Pinyon Script', cursive; font-size: 42px; color: #ffffff;
             line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.1); font-weight: 300;
@@ -194,9 +187,6 @@
         <div class="main_visual">
             <img src="image/main.webp" class="main_bg_img" alt="메인 배경" fetchpriority="high" decoding="sync">
             
-            <div class="intro_container">
-                <p class="intro_text writing_text">Welcome to Our Wedding</p>
-            </div>
             <div class="script_container">
                 <div class="script_line writing_text line1">We're getting</div>
                 <div class="script_line writing_text line2">Married</div>
@@ -419,9 +409,11 @@
                 var content = $(this).text();
                 var newHtml = '';
                 var startDelay = 0.5; 
-                if($(this).hasClass('intro_text')) startDelay = 0.5;
-                else if($(this).hasClass('line1')) startDelay = 4.0;
-                else if($(this).hasClass('line2')) startDelay = 5.2;
+                
+                // Welcome 텍스트가 사라졌으므로, 
+                // We're getting Married가 더 빨리 뜨도록 딜레이 조정
+                if($(this).hasClass('line1')) startDelay = 1.0; 
+                else if($(this).hasClass('line2')) startDelay = 2.2; 
 
                 for(var i=0; i<content.length; i++) {
                     var char = content[i] == ' ' ? '&nbsp;' : content[i];
